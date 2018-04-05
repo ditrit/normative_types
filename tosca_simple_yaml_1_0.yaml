@@ -6,7 +6,7 @@ metadata:
   template_version: 1.0
 
 
-description: TOSCA normative types
+description: TOSCA 1.1 normative types
 
 imports:
   - artifact_types:     tosca_simple_yaml_1_0_artifacts.yaml
