@@ -30,7 +30,7 @@ relationship_types:
 
     valid_target_types: [ tosca.capabilities.Node ]
 
-    workflow:
+    workflows:
       install:
         source_weaving:
           - before: creating
@@ -44,7 +44,7 @@ relationship_types:
 
     valid_target_types: [ tosca.capabilities.Container ]
 
-    workflow:
+    workflows:
       install:
         source_weaving:
           - before: creating
@@ -62,7 +62,7 @@ relationship_types:
         type: tosca.datatypes.Credential
         required: false
 
-    workflow:
+    workflows:
       install:
         source_weaving:
           - after: configuring
