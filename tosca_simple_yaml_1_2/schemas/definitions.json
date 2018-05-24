@@ -1,0 +1,132 @@
+       
+{ "description": { 
+    "$id": "http://ditrit.io/schemas/description.json",
+    "instanceof": "Str",
+    "errorMessage": { "instanceof": "Syntax Error : Value for 'description' keyword must be a string" }
+  },
+
+  "namespace": { 
+    "$id": "http://ditrit.io/schemas/namespace.json",
+    "instanceof": "Str",
+    "errorMessage": { "instanceof": "Syntax Error : Value for 'namespace' keyword must be a string" }
+  },
+
+  "metadata": {
+    "$id": "http://ditrit.io/schemas/metadata.json",
+    "dictProperties": {
+      "template_name": {
+        "instanceof": "Str",
+        "errorMessage": { "instanceof": "'template_name' value must be a string" }
+      },
+      "template_author": {
+        "instanceof": "Str",
+        "errorMessage": { "instanceof": "'template_author' value must be a string" }
+      },
+      "template_version": {
+        "instanceof": ["Version", "Real" ],
+        "errorMessage": { "instanceof": "'template_version' value must be a valid version" }
+      }
+    },
+    "dictPatternProperties": {
+        "instanceof": "Str",
+        "errorMessage": { "instanceof": "Syntax error in metadata definition" }
+    },
+    "errorMessage": {
+      "dictProperties": "Syntax Error for predefined metadata definition",
+      "dictPatternProperties": "Syntax error in metadata definition"
+    }
+  },
+
+  "imports": {
+    "$id": "http://ditrit.io/schemas/imports.json",
+    "listItems": {
+      "anyOf": [
+        { "instanceof": "Str"},
+        { "idDefinition": { "instanceof": "Str" } },
+        { "idDefinition": {
+            "dictRequired": [ "file" ],
+            "dictProperties": {
+              "file": { "instanceof": "Str"},
+              "repository": { "instanceof": "Str"},
+              "namespace_prefix": { "instanceof": "Str"},
+              "namespace_uri": { "instanceof": "Str"}
+            }
+          }
+        }      
+      ],
+      "errorMessage": { "anyOf": "Syntax error in import definition" }
+    },
+    "errorMessage": { "listItems": "Syntax error in 'imports' section" }
+  },
+
+  "repositories": {
+    "$id": "http://ditrit.io/schemas/repositories.json",
+    "dictIdsDefinition": {
+      "anyOf": [
+        { "instanceof": "Str"},
+        { "dictRequired": [ "url" ],
+          "dictProperties": {
+            "url": { "instanceof": "Str"},
+            "description": { "$ref": "description.json"},
+            "credential": {
+              "dictRequired": [ "token" ],
+              "dictProperties": {
+                "protocol": { "instanceof": "Str"},
+                "token": { "instanceof": "Str"},
+                "token_type": { "instanceof": "Str"},
+                "user": { "instanceof": "Str"}
+              },
+              "errorMessage": { "dictRequired": "'token' value is mandatory" }
+            },
+            "errorMessage": {
+              "credential": "Syntax error in credential definition",
+              "url": "url must be a string"
+            }
+          },
+          "errorMessage": { "dictRequired": "'url' value is mandatory" }
+        }
+      ],
+      "errorMessage": { "anyOf": "Syntax error in repository definition" }
+    },
+    "errorMessage": { "dictIdsDefinition": "Syntax error in repositories definition" }
+  },
+
+
+  "topology_template": {
+    "$id": "http://ditrit.io/schemas/topology_template.json",
+    "dictProperties": {
+       "description":               { "$ref": "description.json"},
+       "inputs":                    {},
+       "outputs":                   {},
+       "node_templates":            {},
+       "relationship_templates":    {},
+       "groups":                    {},
+       "policies":                  {},
+       "substitution_mappings":     {},
+       "workflows":                 {}
+    }
+  },
+
+  "service_template": {
+    "$id": "http://ditrit.io/schemas/service_template.json",
+    "dictRequired": [ "tosca_definitions_version" ],
+    "dictProperties": {
+       "tosca_definitions_version": { "instanceof": "Str"},
+       "description":               { "$ref": "description.json"},
+       "namespace" :                { "$ref": "imports.json" },
+       "metadata" :                 { "$ref": "metadata.json"},
+       "repositories" :             { "$ref": "repositories.json"},
+       "imports" :                  { "$ref": "imports.json" },
+       "artifact_types" :           {},
+       "data_types" :               {},
+       "capability_types" :         {},
+       "interface_types" :          {},
+       "relationship_types" :       {},
+       "node_types" :               {},
+       "group_types" :              {},
+       "policy_types" :             {},
+       "topology_template" :        { "$ref": "topology_template.json" }
+    }
+  }
+
+}

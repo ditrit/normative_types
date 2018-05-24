@@ -1,0 +1,45 @@
+
+{ "imports": {
+    "listUniqueItems": true,
+    "listItems": {
+      "anyOf": [
+        { "instanceof": "Str"},
+        { "idDefinition": { 
+            "instanceof": "Str"
+          } 
+        },
+        { "idDefinition": {
+            "dictRequired": [ "file" ],
+            "dictProperties": {
+              "file": { "instanceof": "Str"},
+              "repository": { "instanceof": "Str"},
+              "namespace_prefix": { "instanceof": "Str"},
+              "namespace_uri": { "instanceof": "Str"}
+            }
+          }
+        }      
+      ]
+    }
+  },
+  "service_template": {
+    "dictRequired": [ "tosca_definitions_version" ],
+    "dictProperties": {
+       "tosca_definitions_version": { "instanceof": "Str"},
+       "description": { "instanceof": "Str"},
+       "namespace" : { "instanceof": "Str"},
+       "metadata" : { "instanceof": "Dict"},
+       "repositories" : {},
+       "imports" : {},
+       "artifact_types" : {},
+       "data_types" : {},
+       "capability_types" : {},
+       "interface_types" : {},
+       "relationship_types" : {},
+       "node_types" : {},
+       "group_types" : {},
+       "policy_types" : {},
+       "topology_template" : {}
+    }
+  }
+}
+

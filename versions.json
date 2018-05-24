@@ -1,0 +1,5 @@
+{"http://docs.oasis-open.org/tosca/ns/simple/yaml/1.2": "tosca_simple_yaml_1_2",
+ "tosca_simple_yaml_1_2": "tosca_simple_yaml_1_2",
+ "http://docs.oasis-open.org/tosca/ns/simple/yaml/1.0": "tosca_simple_yaml_1_0",
+ "tosca_simple_yaml_1_0": "tosca_simple_yaml_1_0"
+}
