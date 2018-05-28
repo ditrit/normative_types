@@ -1,0 +1,192 @@
+       
+{ 
+
+  "description": { 
+    "$id": "http://ditrit.io/schemas/description",
+    "instanceof": "Str"
+  },
+
+  "namespace": { 
+    "$id": "http://ditrit.io/schemas/namespace",
+    "instanceof": "Str"
+  },
+
+  "metadata": {
+    "$id": "http://ditrit.io/schemas/metadata",
+    "dictProperties": {
+      "template_name":    { "instanceof": "Str" },
+      "template_author":  { "instanceof": "Str" },
+      "template_version": { "instanceof": ["Version", "Real" ] }
+    },
+    "dictPatternProperties": { "instanceof": "Str" }
+  },
+
+  "imports": {
+    "$id": "http://ditrit.io/schemas/imports",
+    "listItems": {
+      "anyOf": [
+        { "instanceof": "Str"},
+        { "idDefinition": { "instanceof": "Str" } },
+        { "idDefinition": {
+            "dictRequired": [ "file" ],
+            "dictProperties": {
+              "file":             { "instanceof": "Str"},
+              "repository":       { "instanceof": "Str"},
+              "namespace_prefix": { "instanceof": "Str"},
+              "namespace_uri":    { "instanceof": "Str"}
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  "repositories": {
+    "$id": "http://ditrit.io/schemas/repositories",
+    "dictIdsDefinition": {
+      "anyOf": [
+        { "instanceof": "Str"},
+        { "dictRequired": [ "url" ],
+          "dictProperties": {
+            "url":         { "instanceof": "Str"},
+            "description": { "$ref": "description"},
+            "credential":  {
+              "dictRequired": [ "token" ],
+              "dictProperties": {
+                "protocol":   { "instanceof": "Str"},
+                "token":      { "instanceof": "Str"},
+                "token_type": { "instanceof": "Str"},
+                "user":       { "instanceof": "Str"}
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  "constraint": {
+    "$id": "http://ditrit.io/schemas/constraint",
+    "dictMinProperties": 1,
+    "dictMaxProperties": 1,
+    "dictProperties": { 
+      "equal":            { "instanceof": "Value" },
+      "greater_than":     { "instanceof": "ComparableValue" },
+      "greater_or_equal": { "instanceof": "ComparableValue" },
+      "less_than":        { "instanceof": "ComparableValue" },
+      "less_or_equal":    { "instanceof": "ComparableValue" },
+      "in_range":         { "instanceof": [ "Range", "List" ] },
+      "valid_values":     { "instanceof": "List" },
+      "length":           { "instanceof": "Int" },
+      "min_length":       { "instanceof": "Int" }, 
+      "max_length":       { "instanceof": "Int" },
+      "pattern":          { "instanceof": "Str" },
+      "schema":           { "instanceof": "Str" } 
+    }
+  },
+
+  "constraints": {
+    "$id": "http://ditrit.io/schemas/constraints",
+    "listItems": { "$ref": "constraint" }
+  },
+
+  "entry_schema": {
+    "$id": "http://ditrit.io/schemas/entry_schema",
+    "oneOf": [
+      { "instanceof": "Str"},
+      { "dictRequired": [ "type" ],
+        "dictProperties": {
+          "type":         { "instanceof": "Str"},
+          "description":  { "$ref": "description" },
+          "constraints":  { "$ref": "constraints" },
+          "entry_schema": { "$ref": "entry_schema" }
+        }
+      }
+    ]
+  },
+
+  "properties": {
+    "$id": "http://ditrit.io/schemas/properties",
+    "dictIdsDefinition": {
+      "dictRequired": [ "type" ],
+      "dictProperties": {
+        "type":         { "instanceof": "Str" },
+        "description":  { "$ref": "description" }, 
+        "constraints":  { "$ref": "constraints" },
+        "required":     { "instanceof": "Bool" },
+        "default":      { "instanceof": "Value" },
+        "status":       {
+          "properties": {
+            "value": { 
+              "enum": ["supported", "unsupported", "experimental", "deprecated"]
+            }
+          }
+        },
+        "metadata":     { "$ref": "metadata" },
+        "entry_schema": { "$ref": "entry_schema" } 
+      }
+    }
+  },
+
+  "attributes": {
+    "$id": "http://ditrit.io/schemas/attributes",
+    "dictIdsDefinition": {
+      "dictRequired": [ "type" ],
+      "dictProperties": {
+        "type":         { "instanceof": "Str" },
+        "description":  { "$ref": "description" }, 
+        "default":      { "instanceof": "Value" },
+        "status":       { "enum": ["supported", "unsupported", "experimental", "deprecated"]},
+        "entry_schema": { "$ref": "entry_schema" } 
+      }
+    }
+  },
+
+
+  "artifact_types": {
+    "$id": "http://ditrit.io/schemas/artifact_types",
+    "dictIdsDefinition": {
+      "dictProperties": {
+        "derived_from": { "instanceof": "Str" },
+        "version":      { "instanceof": "Version" },
+        "metadata":     { "$ref": "metadata" },
+        "description":  { "$ref": "description" },
+        "file_ext":     { "listItems": { "instanceof": "Str"} },
+        "mime_type":    { "instanceof": "Str" },
+        "properties":   { "$ref": "properties" }
+      }
+    }
+  },
+
+  "data_types": {
+    "$id": "http://ditrit.io/schemas/data_types",
+    "dictIdsDefinition": {
+      "dictProperties": {
+        "derived_from": { "instanceof": "Str" },
+        "version":      { "instanceof": "Version" },
+        "metadata":     { "$ref": "metadata" },
+        "description":  { "$ref": "description" },
+        "properties":   { "$ref": "properties" },
+        "constraints":  { "$ref": "constraints" }
+      }
+    }
+  },
+
+  "capability_types": {
+    "$id": "http://ditrit.io/schemas/capability_types",
+    "dictIdsDefinition": {
+      "dictProperties": {
+        "derived_from": { "instanceof": "Str" },
+        "version":      { "instanceof": "Version" },
+        "metadata":     { "$ref": "metadata" },
+        "description":  { "$ref": "description" },
+        "properties":   { "$ref": "properties" },
+        "attributes":   { "$ref": "attributes" },
+        "valid_source_types": {
+          "listItems": { "instanceof": "Str" }
+        }
+      }
+    }
+  }
+
+}
