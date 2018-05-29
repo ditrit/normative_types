@@ -1,0 +1,25 @@
+{
+  "repositories": {
+    "$id": "http://ditrit.io/schemas/repositories",
+    "dictIdsDefinition": {
+      "anyOf": [
+        { "instanceof": "Str"},
+        { "dictRequired": [ "url" ],
+          "dictProperties": {
+            "url":         { "instanceof": "Str"},
+            "description": { "$ref": "description"},
+            "credential":  {
+              "dictRequired": [ "token" ],
+              "dictProperties": {
+                "protocol":   { "instanceof": "Str"},
+                "token":      { "instanceof": "Str"},
+                "token_type": { "instanceof": "Str"},
+                "user":       { "instanceof": "Str"}
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

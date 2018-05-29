@@ -1,0 +1,21 @@
+{
+  "imports": {
+    "$id": "http://ditrit.io/schemas/imports",
+    "listItems": {
+      "anyOf": [
+        { "instanceof": "Str"},
+        { "idDefinition": { "instanceof": "Str" } },
+        { "idDefinition": {
+            "dictRequired": [ "file" ],
+            "dictProperties": {
+              "file":             { "instanceof": "Str"},
+              "repository":       { "instanceof": "Str"},
+              "namespace_prefix": { "instanceof": "Str"},
+              "namespace_uri":    { "instanceof": "Str"}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

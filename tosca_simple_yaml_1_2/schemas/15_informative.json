@@ -1,0 +1,24 @@
+       
+{ 
+
+  "description": { 
+    "$id": "http://ditrit.io/schemas/description",
+    "instanceof": "Str"
+  },
+
+  "namespace": { 
+    "$id": "http://ditrit.io/schemas/namespace",
+    "instanceof": "Str"
+  },
+
+  "metadata": {
+    "$id": "http://ditrit.io/schemas/metadata",
+    "dictProperties": {
+      "template_name":    { "instanceof": "Str" },
+      "template_author":  { "instanceof": "Str" },
+      "template_version": { "instanceof": [ "Version", "Real" ] }
+    },
+    "dictAdditionalProperties": { "instanceof": "Str" }
+  }
+
+}

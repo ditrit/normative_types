@@ -1,0 +1,59 @@
+{
+
+  "value_expression": {
+  	"$id": "http://ditrit.io/schemas/value_expression",
+  	"dictMinProperties": 1,
+  	"dictMaxProperties": 1,
+  	"dictProperties": {
+  	  "concat": {
+  	  	"listItems": { 
+  	  	  "anyOf": [ { "instanceof": "Str"}, { "$ref": "value_expression" } ]
+  	  	}
+  	  },
+  	  "get_input": { "instanceof": "Str"},
+  	  "get_nodes_of_types": { "instanceof": "Str"},
+      "token": {
+        "listMinItems": 3,
+        "listMaxItems": 3,
+        "listItems": { 
+          "list": [ 
+            { "anyOf": [ { "instanceof": "Str"}, { "$ref": "value_expression" }] },
+            { "instanceof": "Str"},
+            { "instanceof": "Int"} 
+          ] }
+      },
+      "join": {
+        "listMaxItems": 2,
+        "listItems": {
+          "list": [ 
+            { "anyOf": [
+                { "$ref": "value_expression" },
+                { "listItems": { "anyOf": [ { "instanceof": "Str"}, { "$ref": "value_expression" } ] } }
+              ]},
+            { "instanceof": "Str"} ]
+        }
+      },
+      "get_property": {
+        "listMinItems": 2,
+        "listItems": { "list": [ { "instanceof": "Str"}, { "instanceof": "Str"} ] },
+        "listAdditionalItems": { "anyOf": [ { "instanceof": "Str"}, { "instanceof": "Int"} ] }
+      },
+      "get_attribute": {
+        "listMinItems": 2,
+        "listItems": { "list": [ { "instanceof": "Str"}, { "instanceof": "Str"} ] },
+        "listAdditionalItems": { "anyOf": [ { "instanceof": "Str"}, { "instanceof": "Int"} ] }
+      },
+      "get_operation_output": {
+        "listMinItems": 4,
+        "listMaxItems": 4,
+        "listItems": { "list": [ { "instanceof": "Str"}, { "instanceof": "Str"}, { "instanceof": "Str"}, { "instanceof": "Str"} ] }
+      },
+      "get_artifact": {
+        "listMinItems": 2,
+        "listMaxItems": 4,
+        "listItems": { "list": [ { "instanceof": "Str"}, { "instanceof": "Str"}, { "instanceof": "Str"} ] },
+        "listAdditionalItems": { "instanceof": "Bool"}
+      }
+    }
+  }
+}

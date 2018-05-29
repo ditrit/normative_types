@@ -1,64 +1,4 @@
-       
-{ 
-  "capability_defs": {
-    "$id": "http://ditrit.io/schemas/capability_defs",
-    "dictIdsDefinition": {
-      "dictProperties": {
-        "type": { "instanceof": "Str" },
-        "description":  { "$ref": "description" },
-        "properties":   { "$ref": "properties" },
-        "attributes":   { "$ref": "attributes" },
-        "valid_source_types": {
-          "listItems": { "instanceof": "Str" }
-        },
-        "occurences":  { "instanceof": [ "Range", "List" ]}
-      }
-    }
-  },
-
-  "requirement_defs": {
-    "$id": "http://ditrit.io/schemas/requirement_defs",
-    "listItems": {
-      "anyOf": [
-        { "idDefinition": { "instanceof": "Str" } },
-        { "idDefinition": {
-            "dictRequired": [ "capability" ],
-            "dictProperties": {
-              "capability":       { "instanceof": "Str" },
-              "description":      { "$ref": "description" },
-              "node":             { "instanceof": "Str" },
-              "occurences":       { "instanceof": [ "Range", "List" ] },
-              "relationship":     {
-                "anyOf": [ 
-                  { "instanceof": "Str" },
-                  { "dictProperties": {
-                      "type": { "instanceof": "Str" },
-                      "interfaces": { "$ref": "interface_defs" }
-                    }
-                  }  
-                ]
-              }
-            }
-          }
-        }
-      ]
-    }
-  },
-
-  "artifact_defs": {
-    "$id": "http://ditrit.io/schemas/artifact_defs",
-    "dictIdsDefinition": {    
-      "dictRequired": [ "type", "file"],
-      "dictProperties": {
-        "type": { "instanceof": "Str" },
-        "file": { "instanceof": "Str" },
-        "repository": { "instanceof": "Str" },
-        "description": { "$ref": "description" },
-        "deploy_path": { "instanceof": "Str"}
-      }
-    }
-  },
-
+{
   "workflow_condition_clause": {
     "$id": "http://ditrit.io/schemas/workflow_condition_clause",
     "listItems": {
@@ -101,17 +41,19 @@
 
   "workflow_steps": {
     "$id": "http://ditrit.io/schemas/workflow_steps",
-    "dictProperties": {
-      "target":              { "instanceof": "Str" },
-      "target_relationship": { "instanceof": "Str" },
-      "filter":              { "$ref": "workflow_condition_clause"},
-      "activities":          { "$ref": "workflow_activities" },
-      "operation_host":      { "instanceof": "Str"},
-      "on_success":          { 
-        "anyOf": [ { "instanceof": "Str"}, { "listItems": { "instanceof": "Str" } } ]
-      },
-      "on_failure":          { 
-        "anyOf": [ { "instanceof": "Str"}, { "listItems": { "instanceof": "Str" } } ]
+    "dictIdsDefinition": {    
+      "dictProperties": {
+        "target":              { "instanceof": "Str" },
+        "target_relationship": { "instanceof": "Str" },
+        "filter":              { "$ref": "workflow_condition_clause"},
+        "activities":          { "$ref": "workflow_activities" },
+        "operation_host":      { "instanceof": "Str"},
+        "on_success":          { 
+          "anyOf": [ { "instanceof": "Str"}, { "listItems": { "instanceof": "Str" } } ]
+        },
+        "on_failure":          { 
+          "anyOf": [ { "instanceof": "Str"}, { "listItems": { "instanceof": "Str" } } ]
+        }
       }
     }
   },
@@ -161,6 +103,19 @@
         "preconditions":  { "$ref": "workflow_preconditions" }, 
         "source_weaving": { "$ref": "workflow_source_weaving" },         
         "target_weaving": { "$ref": "workflow_target_weaving" }
+      }
+    }         
+  },
+
+  "imperative_workflow_defs": {
+    "$id": "http://ditrit.io/schemas/imperative_workflow_defs",
+    "dictIdsDefinition": {    
+      "dictProperties": {
+        "description":   { "$ref": "description" },
+        "metadata":      { "$ref": "metadata" },
+        "inputs":        { "$ref": "properties" },
+        "preconditions": { "$ref": "workflow_preconditions" }, 
+        "steps":         { "$ref": "workflow_steps" }
       }
     }         
   }

@@ -1,0 +1,61 @@
+{
+  "requirement_defs": {
+    "$id": "http://ditrit.io/schemas/requirement_defs",
+    "listItems": {
+      "anyOf": [
+        { "idDefinition": { "instanceof": "Str" } },
+        { "idDefinition": {
+            "dictRequired": [ "capability" ],
+            "dictProperties": {
+              "capability":       { "instanceof": "Str" },
+              "description":      { "$ref": "description" },
+              "node":             { "instanceof": "Str" },
+              "occurrences":       { "instanceof": [ "Range", "List" ] },
+              "relationship":     {
+                "anyOf": [ 
+                  { "instanceof": "Str" },
+                  { "dictProperties": {
+                      "type": { "instanceof": "Str" },
+                      "interfaces": { "$ref": "interface_defs" }
+                    }
+                  }  
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  "requirement_assignments": {
+    "$id": "http://ditrit.io/schemas/requirement_assignments",
+    "listItems": {
+      "anyOf": [
+        { "idDefinition": { "instanceof": "Str" } },
+        { "idDefinition": {
+            "dictProperties": {
+              "node": { "instanceof": "Str"},
+              "relationship": {
+                "anyOf": [
+                  { "instanceof": "Str"},
+                  { "dictProperties": {
+                      "type": { "instanceof": "Str"},
+                      "properties": { "$ref": "property_assignments"},
+                      "interfaces": { "$ref": "interface_defs_template" }
+                    }
+                  }
+                ]
+              },
+              "capability": { "instanceof": "Str"},
+              "occurrences": { "instanceof": [ "Range", "List" ] },
+              "node_filter": { "$ref": "node_filter" }
+            }
+          }
+        }
+      ]
+
+    }
+  }
+
+}

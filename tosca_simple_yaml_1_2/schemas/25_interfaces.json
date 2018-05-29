@@ -1,0 +1,83 @@
+{
+
+  "implementation": {
+    "$id": "http://ditrit.io/schemas/implementation",
+    "anyOf": [
+      { "instanceof": "Str"},
+      { "dictRequired": [ "primary" ],
+        "dictProperties": {
+          "primary": {
+            "anyOf": [
+              { "instanceof": "Str" },
+              { "$ref": "artifact_def"}
+            ]
+          },
+          "dependencies": {
+            "listItems": {
+              "AnyOf": [
+                { "instanceof": "Str" },
+                { "$ref": "artifact_def"}
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+
+  "operation_def": {
+    "$id": "http://ditrit.io/schemas/operation_def",
+    "dictProperties": {
+      "description":    { "$ref": "description" },
+      "inputs":         { "$ref": "properties" },
+      "implementation": { "$ref": "implementation" } 
+    }
+  },
+
+  "operation_def_template": {
+    "$id": "http://ditrit.io/schemas/operation_def_template",
+    "dictProperties": {
+      "description":    { "$ref": "description" },
+      "inputs":         { "$ref": "input_assignments" },
+      "implementation": {  "$ref": "implementation" } 
+    }
+  },
+
+  "interface_types": {
+    "$id": "http://ditrit.io/schemas/interface_types",
+    "dictIdsDefinition": {
+      "dictProperties": {
+        "derived_from": { "instanceof": "Str" },
+        "version":      { "instanceof": "Version" },
+        "metadata":     { "$ref": "metadata" },
+        "description":  { "$ref": "description" },
+        "inputs":       { "$ref": "properties" }
+      },
+      "dictAdditionalProperties": { "$ref": "operation_def" }
+    }
+  },
+
+  "interface_defs": {
+    "$id": "http://ditrit.io/schemas/interface_defs",
+    "dictIdsDefinition": {
+      "dictRequired": [ "type" ],
+      "dictProperties": {
+        "type":       { "instanceof": "Str" },
+        "inputs":     { "$ref": "properties" }
+      },  
+      "dictAdditionalProperties": { "$ref": "operation_def" }
+    }
+  },
+
+  "interface_defs_template": {
+    "$id": "http://ditrit.io/schemas/interface_defs_template",
+    "dictIdsDefinition": {
+      "dictProperties": {
+        "inputs":     { "$ref": "input_assignments" }
+      },  
+      "dictAdditionalProperties": { "$ref": "operation_def_template" }
+    }
+  }
+
+
+}

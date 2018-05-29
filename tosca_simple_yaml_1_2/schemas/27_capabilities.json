@@ -1,0 +1,51 @@
+{
+  "capability_types": {
+    "$id": "http://ditrit.io/schemas/capability_types",
+    "dictIdsDefinition": {
+      "dictProperties": {
+        "derived_from": { "instanceof": "Str" },
+        "version":      { "instanceof": "Version" },
+        "metadata":     { "$ref": "metadata" },
+        "description":  { "$ref": "description" },
+        "properties":   { "$ref": "properties" },
+        "attributes":   { "$ref": "attributes" },
+        "valid_source_types": {
+          "listItems": { "instanceof": "Str" }
+        }
+      }
+    }
+  },
+
+  "capability_defs": {
+    "$id": "http://ditrit.io/schemas/capability_defs",
+    "dictIdsDefinition": {
+      "anyOf": [
+        { "dictProperties": {
+            "type": { "instanceof": "Str" },
+            "description":  { "$ref": "description" },
+            "properties":   { "$ref": "properties" },
+            "attributes":   { "$ref": "attributes" },
+            "valid_source_types": {
+              "listItems": { "instanceof": "Str" }
+            },
+            "occurrences":  { "instanceof": [ "Range", "List" ]}
+          }
+        },
+        { "instanceof": "Str"}
+      ]
+    }
+  },
+
+  "capability_asignments": {
+    "$id": "http://ditrit.io/schemas/capability_assignments",
+    "dictIdsDefinition": {
+      "dictProperties": {
+        "properties": { "$ref": "property_assignments" },
+        "attributes": { "$ref": "attribute_assignments" }
+      }
+    }
+  }
+
+
+
+}

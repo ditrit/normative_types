@@ -1,0 +1,70 @@
+{
+  "trigger_defs": {
+    "$id": "http://ditrit.io/schemas/trigger_defs",
+    "dictIdsDefinition": {
+      "dictProperties": {
+        "description":   { "$ref": "description" },
+        "event": {
+          "anyOf": [
+            { "instanceof": "Str" },
+            { "dictProperties": { "type": { "instanceof": "Str"} } }
+          ]
+        },
+        "schedule":      { "instanceof": "Value" },
+        "target_filter": {
+          "dictProperties": {
+            "node":        { "instanceof": "Str"},
+            "requirement": { "instanceof": "Str"},
+            "capability":  { "instanceof": "Str"}
+          }
+        },
+        "condition":     {
+          "anyOf": [
+            { "$ref": "constraint" },
+            { "dictProperties": { "constraint": { "$ref": "constraint" } } }
+          ]
+        },
+        "period":        { "instanceof": "ScalarUnitTime"  },
+        "evaluations":   { "instanceof": "Int" },
+        "method":        { "instanceof": "Str"},
+        "action": {
+          "anyOf": [
+            { "instanceof": "Str"},
+            { "$ref": "operation_def" }
+          ]
+        }
+      }
+    }
+  },
+
+  "policy_types": {
+    "$id": "http://ditrit.io/schemas/policy_types",
+    "dictIdsDefinition": {
+      "dictProperties": {
+        "derived_from":       { "instanceof": "Str" },
+        "version":            { "instanceof": "Version" },
+        "metadata":           { "$ref": "metadata" },
+        "description":        { "$ref": "description" },
+        "properties":         { "$ref": "properties" },
+        "targets":            { "listItems": { "instanceof": "Str" } },
+        "triggers":           { "$ref": "trigger_defs"}
+      }
+    }
+  },
+
+  "policy_defs": {
+    "$id": "http://ditrit.io/schemas/policy_defs",
+    "listItems": {
+      "idDefinition": {
+        "dictProperties": { 
+          "type":             { "instanceof": "Str" },
+          "description":      { "$ref": "description" },
+          "properties":       { "$ref": "property_assignments" },
+          "targets":          { "listItems": { "instanceof": "Str" } },
+          "triggers":         { "$ref": "trigger_defs"}
+        }
+      }
+    }
+  }
+
+}

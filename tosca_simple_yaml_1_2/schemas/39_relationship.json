@@ -1,0 +1,35 @@
+{
+  "relationship_types": {
+    "$id": "http://ditrit.io/schemas/relationship_types",
+    "dictIdsDefinition": {
+      "dictProperties": {
+        "derived_from":       { "instanceof": "Str" },
+        "version":            { "instanceof": "Version" },
+        "metadata":           { "$ref": "metadata" },
+        "description":        { "$ref": "description" },
+        "properties":         { "$ref": "properties" },
+        "attributes":         { "$ref": "attributes" },
+        "interfaces":         { "$ref": "interface_defs" },
+        "valid_target_types": { "listItems": { "instanceof": "Str" } },
+        "workflows":          { "$ref": "declarative_workflow_rel_defs" }
+      }
+    }
+  },
+
+  "relationship_templates": {
+    "$id": "http://ditrit.io/schemas/relationship_templates",
+    "dictIdsDefinition": {
+      "dictPatternRequired": [ "^type$|^copy$"],      
+      "dictProperties": {
+        "type":         { "instanceof": "Str" },
+        "description":        { "$ref": "description" },
+        "metadata":           { "$ref": "metadata" },
+        "properties":   { "$ref": "property_assignments" },
+        "attributes":   { "$ref": "attribute_assignments" },
+        "interfaces":   { "$ref": "interface_defs_template" },
+        "copy":         { "instanceof": "Str"}
+      }
+    }
+  }
+
+}
